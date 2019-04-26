@@ -1,4 +1,4 @@
---åŸå§‹--
+--Ô­Ê¼--
 select pasttijiannum,count(pasttijiannum) from
 (select regexp_count(substr(tijianrq,1,instr(tijianrq,quezhenrq,-1)),',') as pasttijiannum  from
 (select xingming, zhengjianbm,  wmsys.wm_concat(distinct to_char(tijianrq, 'yy-mm-dd')) as tijianrq, count(distinct to_char(tijianrq, 'yy-mm-dd')) as countnum,max(distinct quezhenrq) as quezhenrq
@@ -7,11 +7,11 @@ from
 from tj_gerenzjzd_extend,
 (select xingming,zhengjianbm,min(distinct to_char(tijianrq, 'yy-mm-dd')) as quezhenrq
 from tj_gerenzjzd_extend t
-where zhenduanxx like '%çœ¼%åŠ¨è„‰ç¡¬åŒ–%'
-	  and not (zhenduanxx like '%å€¾å‘%'
-		   or  zhenduanxx like '%è„‚è‚ªè‚è€ƒè™‘%'
+where zhenduanxx like '%ÑÛ%¶¯ÂöÓ²»¯%'
+	  and not (zhenduanxx like '%ÇãÏò%'
+		   or  zhenduanxx like '%Ö¬·¾¸Î¿¼ÂÇ%'
 		   or  zhenduanxx like '%?%'
-		   or  zhenduanxx like '%ï¼Ÿ%'   
+		   or  zhenduanxx like '%£¿%'   
 	  )
 and (regexp_like(xingming,'\D\d{4}$') or zhengjianbm is not null)
 group by (xingming, zhengjianbm)
@@ -20,18 +20,18 @@ where tj_gerenzjzd_extend.xingming=t.xingming and tj_gerenzjzd_extend.zhengjianb
 group by (xingming, zhengjianbm) order by countnum desc, tijianrq asc)t)
 group by pasttijiannum order by pasttijiannum asc;
 
---æ ¹æ®å¸ˆå…„å»ºè®®ä¿®æ”¹--
+--¸ù¾İÊ¦ĞÖ½¨ÒéĞŞ¸Ä--
 select pasttijiannum,count(pasttijiannum) from
 (select regexp_count(substr(tijianrq,1,instr(tijianrq,quezhenrq,-1)),',') as pasttijiannum  from
 (select e.xingming as xingming, NVL(e.zhengjianbm,' ') as zhengjianbm,  wmsys.wm_concat(distinct to_char(e.tijianrq, 'yy-mm-dd')) as tijianrq, count(distinct to_char(e.tijianrq, 'yy-mm-dd')) as countnum,max(distinct t.quezhenrq) as quezhenrq
 from tj_gerenzjzd_extend e,
 (select xingming,NVL(zhengjianbm,' ') as zhengjianbm,min(distinct to_char(tijianrq, 'yy-mm-dd')) as quezhenrq
 from tj_gerenzjzd_extend
-where zhenduanxx like '%è„‚è‚ªè‚%'
-	  and not (zhenduanxx like '%å€¾å‘%'
-		   or  zhenduanxx like '%è„‚è‚ªè‚è€ƒè™‘%'
+where zhenduanxx like '%Ö¬·¾¸Î%'
+	  and not (zhenduanxx like '%ÇãÏò%'
+		   or  zhenduanxx like '%Ö¬·¾¸Î¿¼ÂÇ%'
 		   or  zhenduanxx like '%?%'
-		   or  zhenduanxx like '%ï¼Ÿ%'   
+		   or  zhenduanxx like '%£¿%'   
 	  ) 
 and (regexp_like(xingming,'\D\d{4}$') or zhengjianbm is not null)
 group by (xingming, zhengjianbm)
@@ -45,7 +45,7 @@ where zhenduanxx is not null
 group by zhenduanxx having count(zhenduanxx)>1000
 order by count(zhenduanxx) desc) order by zhenduanxx;
 select zhenduanxx from tj_gerenzjzd_extend
-where zhenduanxx like '%é«˜å°¿é…¸è¡€ç—‡%' group by zhenduanxx;
+where zhenduanxx like '%¸ßÄòËáÑªÖ¢%' group by zhenduanxx;
 select zhenduanxx, count(zhenduanxx) from tj_gerenzjzd_extend
 where zhenduanxx is not null
 group by zhenduanxx;
@@ -57,106 +57,109 @@ order by count(t.zhenduanxx) desc
 )d where countz=1;
 select count(*)
 from tj_gerenzjzd_extend t
-where zhenduanxx like '%è§†ç½‘è†œ%'
-and zhenduanxx like '%åŠ¨è„‰ç¡¬åŒ–%'
-	  and not (zhenduanxx like '%å€¾å‘%'
+where zhenduanxx like '%ÊÓÍøÄ¤%'
+and zhenduanxx like '%¶¯ÂöÓ²»¯%'
+	  and not (zhenduanxx like '%ÇãÏò%'
 		   or  zhenduanxx like '%?%'
-		   or  zhenduanxx like '%ï¼Ÿ%'   
+		   or  zhenduanxx like '%£¿%'   
 	  );
 
-select zhenduanxx from tj_gerenzjzd_extend where zhenduanxx like '%å°¿æ£€%'
+select zhenduanxx from tj_gerenzjzd_extend where zhenduanxx like '%Äò¼ì%'
 group by zhenduanxx
 
 select *
 from tj_gerenzjzd_extend
-where zhenduanxx like '%è„‚è‚ªè‚%'
-	  and not (zhenduanxx like '%å€¾å‘%'
-		   or  zhenduanxx like '%è„‚è‚ªè‚è€ƒè™‘%'
+where zhenduanxx like '%Ö¬·¾¸Î%'
+	  and not (zhenduanxx like '%ÇãÏò%'
+		   or  zhenduanxx like '%Ö¬·¾¸Î¿¼ÂÇ%'
 		   or  zhenduanxx like '%?%'
-		   or  zhenduanxx like '%ï¼Ÿ%'   
+		   or  zhenduanxx like '%£¿%'   
 	  ) 
 and (regexp_like(xingming,'\D\d{4}$') or zhengjianbm is not null)
 
 select * from P_LABELED_TEST_RESULTS where patient_id='401101130021';
-select * from P_LABELED_TEST_RESULTS where test_name like '%è°·è‰è½¬æ°¨é…¶%';
+select * from P_LABELED_TEST_RESULTS where test_name like '%¹È²İ×ª°±Ã¸%';
 
---æ‚£ç—…ç¡®è¯Šå‰--
+--»¼²¡È·ÕïÇ°--
 select  'yes' as status, P_LABELED_TEST_RESULTS.TEST_RESULT
 from P_LABELED_TEST_RESULTS,
 (select distinct t2.tijianbm from 
 (select xingming,NVL(zhengjianbm,' ') as zhengjianbm,min(distinct to_char(tijianrq, 'yy-mm-dd')) as quezhenrq
 from tj_gerenzjzd_extend
-where zhenduanxx like '%è„‚è‚ªè‚%'
-	  and not (zhenduanxx like '%å€¾å‘%'
-		   or  zhenduanxx like '%è„‚è‚ªè‚è€ƒè™‘%'
+where zhenduanxx like '%Ö¬·¾¸Î%'
+	  and not (zhenduanxx like '%ÇãÏò%'
+		   or  zhenduanxx like '%Ö¬·¾¸Î¿¼ÂÇ%'
 		   or  zhenduanxx like '%?%'
-		   or  zhenduanxx like '%ï¼Ÿ%'   
+		   or  zhenduanxx like '%£¿%'   
 	  ) 
 and (regexp_like(xingming,'\D\d{4}$') or zhengjianbm is not null)
 group by (xingming, zhengjianbm))t1,
 ((select xingming,NVL(zhengjianbm,' ') as zhengjianbm,tijianbm,to_char(tijianrq, 'yy-mm-dd') as tijianrq from tj_gerenzjzd_extend))t2
 where t1.xingming=t2.xingming and t1.zhengjianbm=t2.zhengjianbm and t1.quezhenrq=t2.tijianrq)t
-where P_LABELED_TEST_RESULTS.patient_id=t.tijianbm and P_LABELED_TEST_RESULTS.test_name like '%é«˜å¯†åº¦è„‚è›‹ç™½-C%';
+where P_LABELED_TEST_RESULTS.patient_id=t.tijianbm and P_LABELED_TEST_RESULTS.test_name like '%¸ßÃÜ¶ÈÖ¬µ°°×-C%';
 
---è®¡ç®—å¹´é¾„--
+--¼ÆËãÄêÁä--
 select floor(MONTHS_BETWEEN(sysdate,t.chushengrq)/12) from
 (select distinct to_date(to_char(chushengrq, 'yyyy-MM-dd'), 'yyyy-mm-dd') as chushengrq
 from tj_gerenzjzd_extend
-where zhenduanxx like '%è„‚è‚ªè‚%'
-	  and not (zhenduanxx like '%å€¾å‘%'
-		   or  zhenduanxx like '%è„‚è‚ªè‚è€ƒè™‘%'
+where zhenduanxx like '%Ö¬·¾¸Î%'
+	  and not (zhenduanxx like '%ÇãÏò%'
+		   or  zhenduanxx like '%Ö¬·¾¸Î¿¼ÂÇ%'
 		   or  zhenduanxx like '%?%'
-		   or  zhenduanxx like '%ï¼Ÿ%'   
+		   or  zhenduanxx like '%£¿%'   
 	  ) 
-and (regexp_like(xingming,'\D\d{4}$') or zhengjianbm is not null))tï¼›
+and (regexp_like(xingming,'\D\d{4}$') or zhengjianbm is not null))t£»
 
 
---æœªæ‚£ç—…ç¡®è¯Šå‰
+--Î´»¼²¡È·ÕïÇ°
 select  'yes' as status, P_LABELED_TEST_RESULTS.TEST_RESULT
 from P_LABELED_TEST_RESULTS,
 (select distinct t2.tijianbm from 
 (select xingming,NVL(zhengjianbm,' ') as zhengjianbm,min(distinct to_char(tijianrq, 'yy-mm-dd')) as quezhenrq
 from tj_gerenzjzd_extend
-where zhenduanxx like '%è„‚è‚ªè‚%'
-	  and not (zhenduanxx like '%å€¾å‘%'
-		   or  zhenduanxx like '%è„‚è‚ªè‚è€ƒè™‘%'
+where zhenduanxx like '%Ö¬·¾¸Î%'
+	  and not (zhenduanxx like '%ÇãÏò%'
+		   or  zhenduanxx like '%Ö¬·¾¸Î¿¼ÂÇ%'
 		   or  zhenduanxx like '%?%'
-		   or  zhenduanxx like '%ï¼Ÿ%'   
+		   or  zhenduanxx like '%£¿%'   
 	  ) 
 and (regexp_like(xingming,'\D\d{4}$') or zhengjianbm is not null)
 group by (xingming, zhengjianbm))t1,
 ((select xingming,NVL(zhengjianbm,' ') as zhengjianbm,tijianbm,to_char(tijianrq, 'yy-mm-dd') as tijianrq from tj_gerenzjzd_extend))t2
 where t1.xingming=t2.xingming and t1.zhengjianbm=t2.zhengjianbm and t1.quezhenrq=t2.tijianrq)t
-where P_LABELED_TEST_RESULTS.patient_id=t.tijianbm and P_LABELED_TEST_RESULTS.test_name like '%è°·ä¸™è½¬æ°¨é…¶%'
+where P_LABELED_TEST_RESULTS.patient_id=t.tijianbm and P_LABELED_TEST_RESULTS.test_name like '%¹È±û×ª°±Ã¸%'
 union all
 select  'no' as status,P_LABELED_TEST_RESULTS.TEST_RESULT
 from P_LABELED_TEST_RESULTS,
 (select distinct t2.tijianbm from 
 (select xingming,NVL(zhengjianbm,' ') as zhengjianbm,min(distinct to_char(tijianrq, 'yy-mm-dd')) as quezhenrq
 from tj_gerenzjzd_extend
-where not zhenduanxx like '%è„‚è‚ªè‚%' 
+where not zhenduanxx like '%Ö¬·¾¸Î%' 
 and (regexp_like(xingming,'\D\d{4}$') or zhengjianbm is not null)
 group by (xingming, zhengjianbm))t1,
 ((select xingming,NVL(zhengjianbm,' ') as zhengjianbm,tijianbm,to_char(tijianrq, 'yy-mm-dd') as tijianrq from tj_gerenzjzd_extend))t2
 where t1.xingming=t2.xingming and t1.zhengjianbm=t2.zhengjianbm and t1.quezhenrq=t2.tijianrq)t
-where P_LABELED_TEST_RESULTS.patient_id=t.tijianbm and P_LABELED_TEST_RESULTS.test_name like '%è°·ä¸™è½¬æ°¨é…¶%';
+where P_LABELED_TEST_RESULTS.patient_id=t.tijianbm and P_LABELED_TEST_RESULTS.test_name like '%¹È±û×ª°±Ã¸%';
 
---éªŒè¯æµ™ä¸€æ•°æ®--
+--ÑéÖ¤ÕãÒ»Êı¾İ--
 select COUNT(*) from
 (select tijianbm from tj_gerenzjzd_extend 
-where to_char(tijianrq, 'yy-mm-dd') like '11%' and zhenduanxx like '%è„‚è‚ªè‚%'
-and not (zhenduanxx like '%å€¾å‘%'
-		   or  zhenduanxx like '%è„‚è‚ªè‚è€ƒè™‘%'
+where to_char(tijianrq, 'yy-mm-dd') like '11%' and zhenduanxx like '%Ö¬·¾¸Î%'
+and not (zhenduanxx like '%ÇãÏò%'
+		   or  zhenduanxx like '%Ö¬·¾¸Î¿¼ÂÇ%'
 		   or  zhenduanxx like '%?%'
-		   or  zhenduanxx like '%ï¼Ÿ%'  
+		   or  zhenduanxx like '%£¿%'  
 	  )
 group by tijianbm)
 
 select count(distinct tijianbm) from tj_gerenzjzd_extend where to_char(tijianrq, 'yy-mm-dd') like '12%'
 
 --test--
-select * from P_LABELED_TEST_RESULTS where P_LABELED_TEST_RESULTS.test_name like '%èƒ°å²›ç´ %';
---ç»“æŸ--
+select * from P_LABELED_TEST_RESULTS where P_LABELED_TEST_RESULTS.test_name like '%ÒÈµºËØ%';
+
+--select feature--
+
+
 
 
 
