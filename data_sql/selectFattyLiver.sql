@@ -158,9 +158,27 @@ select count(distinct tijianbm) from tj_gerenzjzd_extend where to_char(tijianrq,
 select * from P_LABELED_TEST_RESULTS where P_LABELED_TEST_RESULTS.test_name like '%ÒÈµºËØ%';
 
 --select feature--
+select  t.xingming,t.zhengjianbm,t.tijianbm,t.tijianrq,wmsys.wm_concat(P_LABELED_TEST_RESULTS.test_name),wmsys.wm_concat(P_LABELED_TEST_RESULTS.TEST_RESULT)
+from P_LABELED_TEST_RESULTS,
+(select t2.xingming,t2.zhengjianbm,t2.tijianbm,t2.tijianrq from 
+(select xingming,NVL(zhengjianbm,' ') as zhengjianbm,min(distinct to_char(tijianrq, 'yy-mm-dd')) as quezhenrq
+from tj_gerenzjzd_extend
+where zhenduanxx like '%Ö¬·¾¸Î%'
+	  and not (zhenduanxx like '%ÇãÏò%'
+		   or  zhenduanxx like '%Ö¬·¾¸Î¿¼ÂÇ%'
+		   or  zhenduanxx like '%?%'
+		   or  zhenduanxx like '%£¿%'   
+	  ) 
+and (regexp_like(xingming,'\D\d{4}$') or zhengjianbm is not null)
+group by (xingming, zhengjianbm))t1,
+((select xingming,NVL(zhengjianbm,' ') as zhengjianbm,tijianbm,to_char(tijianrq, 'yy-mm-dd') as tijianrq from tj_gerenzjzd_extend))t2
+where t2.xingming=t1.xingming and t2.zhengjianbm=t1.zhengjianbm and t2.tijianrq<t1.quezhenrq
+group by t2.xingming,t2.zhengjianbm,t2.tijianbm,t2.tijianrq)t
+where P_LABELED_TEST_RESULTS.patient_id=t.tijianbm 
+and (P_LABELED_TEST_RESULTS.test_name='¹È²Ý×ª°±Ã¸'
+or P_LABELED_TEST_RESULTS.test_name='¹È±û×ª°±Ã¸')
+and P_LABELED_TEST_RESULTS.TEST_RESULT is not null
+and regexp_like(P_LABELED_TEST_RESULTS.TEST_RESULT,'^[0-9]+[0-9]$'£©
+group by t.xingming,t.zhengjianbm,t.tijianbm,t.tijianrq having count(P_LABELED_TEST_RESULTS.test_name)>1;
 
-
-
-
-
-
+select * from P_LABELED_TEST_RESULTS where P_LABELED_TEST_RESULTS.PATIENT_ID='401202240002' and P_LABELED_TEST_RESULTS.test_name='¹È±û×ª°±Ã¸';
